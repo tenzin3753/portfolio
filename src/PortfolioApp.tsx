@@ -8,7 +8,6 @@ const NAME = "Tenzin Choeyang";
 const EMAIL = "tenzinchoeyang3753@gmail.com";
 const GITHUB = "https://github.com/tenzin3753";
 const LINKEDIN = "https://www.linkedin.com/in/tenzin-1-choeyang/";
-const [showMenu, setShowMenu] = useState(false);
 
 
 const projectsInitial: Project[] = [
@@ -40,6 +39,7 @@ const TAIL_LENGTH = 9;
 
 const PortfolioApp: React.FC = () => {
   const [theme, setTheme] = useState<string>(() => (typeof window !== "undefined" ? localStorage.getItem("theme") || "dark" : "dark"));
+  const [showMenu, setShowMenu] = useState(false);
   const [projects] = useState<Project[]>(projectsInitial);
 
   useEffect(() => {
@@ -149,39 +149,48 @@ const PortfolioApp: React.FC = () => {
           ))}
         </div>
 
-        <header className="max-w-6xl mx-auto p-4 flex flex-wrap items-center justify-between relative z-50">
-          <div className="flex items-center gap-2">
-            <div className="text-xl font-extrabold tracking-tight">PORTFOLIO</div>
-            <div className="hidden sm:block text-sm opacity-70">{NAME}</div>
-          </div>
+        <header
+          className={`w-full z-50 sticky top-0 ${
+            theme === "dark" ? "bg-gray-900" : "bg-white"
+          } transition-colors duration-300 shadow-sm`}
+        >
+          <div className="max-w-6xl mx-auto p-4 flex flex-wrap items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="text-xl font-extrabold tracking-tight">PORTFOLIO</div>
+              <div className="hidden sm:block text-sm opacity-70">{NAME}</div>
+            </div>
 
-          {/* Hamburger for small screens */}
-          <button
-            className="sm:hidden p-2 rounded-md border border-gray-500/20"
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            ☰
-          </button>
-
-          <nav
-            className={`${
-              showMenu ? "block" : "hidden"
-            } w-full sm:w-auto sm:flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-4 sm:mt-0`}
-          >
-            <a href="#projects" className="text-sm hover:underline">Projects</a>
-            <a href="#contact" className="text-sm hover:underline">Contact</a>
-            <a href={GITHUB} target="_blank" rel="noreferrer" className="text-sm underline">GitHub</a>
-            <a href={LINKEDIN} target="_blank" rel="noreferrer" className="text-sm underline">LinkedIn</a>
-
+            {/* Hamburger for small screens */}
             <button
-              onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
-              className="mt-2 sm:mt-0 p-2 rounded-md bg-gray-200 dark:bg-gray-800/60"
-              aria-label="Toggle theme"
+              className="sm:hidden p-2 rounded-md border border-gray-500/20"
+              onClick={() => setShowMenu(!showMenu)}
             >
-              {theme === "dark" ? "☀️" : "🌙"}
+              ☰
             </button>
-          </nav>
+
+            <nav
+              className={`${
+                showMenu ? "block" : "hidden"
+              } w-full sm:w-auto sm:flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-4 sm:mt-0 ${
+                theme === "dark" ? "bg-gray-900" : "bg-white"
+              } sm:bg-transparent p-4 sm:p-0 rounded-xl sm:rounded-none transition-all duration-300`}
+            >
+              <a href="#projects" className="text-sm hover:underline">Projects</a>
+              <a href="#contact" className="text-sm hover:underline">Contact</a>
+              <a href={GITHUB} target="_blank" rel="noreferrer" className="text-sm underline">GitHub</a>
+              <a href={LINKEDIN} target="_blank" rel="noreferrer" className="text-sm underline">LinkedIn</a>
+
+              <button
+                onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+                className="mt-2 sm:mt-0 p-2 rounded-md bg-gray-200 dark:bg-gray-800/60"
+                aria-label="Toggle theme"
+              >
+                {theme === "dark" ? "☀️" : "🌙"}
+              </button>
+            </nav>
+          </div>
         </header>
+
 
         <main className="max-w-6xl mx-auto p-6 z-10">
 
@@ -200,24 +209,28 @@ const PortfolioApp: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative flex justify-center md:justify-end items-center"
+              className="relative flex justify-center md:justify-end items-center z-30"
             >
               <div className="relative w-56 h-56 md:w-72 md:h-72 flex items-center justify-center">
+                {/* Gradient Glow Behind */}
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ repeat: Infinity, duration: 12, ease: 'linear' }}
-                  className="absolute inset-0 flex items-center justify-center"
+                  transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+                  className="absolute inset-0 flex items-center justify-center -z-10"
                 >
-                  <div className="w-full h-full rounded-full bg-gradient-to-tr from-indigo-500 via-pink-500 to-purple-500 blur-2xl opacity-50"></div>
+                  <div className="w-full h-full rounded-full bg-gradient-to-tr from-indigo-500 via-pink-500 to-purple-500 blur-[100px] opacity-80"></div>
                 </motion.div>
 
+                {/* Profile Image */}
                 <img
-                  src="/profile.jpg"
+                  src={`${import.meta.env.BASE_URL}profile.jpg`}
                   alt="Tenzin Choeyang"
-                  className="relative w-full h-full rounded-full shadow-2xl object-cover border-4 border-gray-800/60 z-10"
+                  className="w-full h-full rounded-full shadow-2xl object-cover border-4 border-indigo-300 relative z-20"
                 />
               </div>
             </motion.div>
+
+
 
 
           </section>
@@ -329,7 +342,7 @@ function FeaturedProjectCard({ project }: { project: Project }) {
       <div className="flex flex-col md:flex-row items-center gap-6">
         <div className="w-full md:w-1/3 rounded-xl overflow-hidden bg-gray-800/30 flex items-center justify-center h-48">
           <img
-            src="/logo.png"
+            src={`${import.meta.env.BASE_URL}logo.png`}
             alt="Ticket App Logo"
             className="object-contain w-32 h-32 md:w-40 md:h-40 p-2"
           />
