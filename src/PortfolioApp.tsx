@@ -8,6 +8,8 @@ const NAME = "Tenzin Choeyang";
 const EMAIL = "tenzinchoeyang3753@gmail.com";
 const GITHUB = "https://github.com/tenzin3753";
 const LINKEDIN = "https://www.linkedin.com/in/tenzin-1-choeyang/";
+const [showMenu, setShowMenu] = useState(false);
+
 
 const projectsInitial: Project[] = [
   {
@@ -147,20 +149,37 @@ const PortfolioApp: React.FC = () => {
           ))}
         </div>
 
-        <header className="max-w-6xl mx-auto p-6 flex items-center justify-between z-40 relative">
-          <div className="flex items-center gap-4">
+        <header className="max-w-6xl mx-auto p-4 flex flex-wrap items-center justify-between relative z-50">
+          <div className="flex items-center gap-2">
             <div className="text-xl font-extrabold tracking-tight">PORTFOLIO</div>
-            <div className="text-sm opacity-70">{NAME}</div>
+            <div className="hidden sm:block text-sm opacity-70">{NAME}</div>
           </div>
 
-          <nav className="flex items-center gap-3">
+          {/* Hamburger for small screens */}
+          <button
+            className="sm:hidden p-2 rounded-md border border-gray-500/20"
+            onClick={() => setShowMenu(!showMenu)}
+          >
+            ☰
+          </button>
+
+          <nav
+            className={`${
+              showMenu ? "block" : "hidden"
+            } w-full sm:w-auto sm:flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-4 sm:mt-0`}
+          >
             <a href="#projects" className="text-sm hover:underline">Projects</a>
-            <a href="#skills" className="text-sm hover:underline">Skills</a>
             <a href="#contact" className="text-sm hover:underline">Contact</a>
             <a href={GITHUB} target="_blank" rel="noreferrer" className="text-sm underline">GitHub</a>
             <a href={LINKEDIN} target="_blank" rel="noreferrer" className="text-sm underline">LinkedIn</a>
 
-            <ThemeToggle theme={theme} setTheme={setTheme} />
+            <button
+              onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+              className="mt-2 sm:mt-0 p-2 rounded-md bg-gray-200 dark:bg-gray-800/60"
+              aria-label="Toggle theme"
+            >
+              {theme === "dark" ? "☀️" : "🌙"}
+            </button>
           </nav>
         </header>
 
