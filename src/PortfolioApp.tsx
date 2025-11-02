@@ -170,19 +170,20 @@ const PortfolioApp: React.FC = () => {
 
             <nav
               className={`${
-                showMenu ? "block" : "hidden"
-              } w-full sm:w-auto sm:flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-4 sm:mt-0 ${
-                theme === "dark" ? "bg-gray-900" : "bg-white"
-              } sm:bg-transparent p-4 sm:p-0 rounded-xl sm:rounded-none transition-all duration-300`}
+                showMenu ? "flex" : "hidden sm:flex"
+              } w-full sm:w-auto flex-col sm:flex-row items-start sm:items-center 
+              gap-4 sm:gap-6 mt-4 sm:mt-0 
+              ${theme === "dark" ? "bg-gray-900" : "bg-white"} 
+              sm:bg-transparent p-4 sm:p-0 rounded-xl sm:rounded-none transition-all duration-300`}
             >
-              <a href="#projects" className="text-sm hover:underline">Projects</a>
-              <a href="#contact" className="text-sm hover:underline">Contact</a>
-              <a href={GITHUB} target="_blank" rel="noreferrer" className="text-sm underline">GitHub</a>
-              <a href={LINKEDIN} target="_blank" rel="noreferrer" className="text-sm underline">LinkedIn</a>
+              <a href="#projects" className="block text-sm py-2 sm:py-0 hover:underline">Projects</a>
+              <a href="#contact" className="block text-sm py-2 sm:py-0 hover:underline">Contact</a>
+              <a href={GITHUB} target="_blank" rel="noreferrer" className="block text-sm py-2 sm:py-0 underline">GitHub</a>
+              <a href={LINKEDIN} target="_blank" rel="noreferrer" className="block text-sm py-2 sm:py-0 underline">LinkedIn</a>
 
               <button
                 onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
-                className="mt-2 sm:mt-0 p-2 rounded-md bg-gray-200 dark:bg-gray-800/60"
+                className="mt-3 sm:mt-0 p-2 rounded-md bg-gray-200 dark:bg-gray-800/60 sm:w-auto w-full text-center"
                 aria-label="Toggle theme"
               >
                 {theme === "dark" ? "☀️" : "🌙"}
